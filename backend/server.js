@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const { rateLimit } = require('express-rate-limit');
 const compression = require('compression');
+const cors = require('cors');
 // local imports
 const userRouter = require('./App/routes/user.routes');
 const serverPing = require('./App/routes/server.ping');
@@ -26,6 +27,7 @@ app.use(express.json());
 app.use(helmet());
 app.use(limiter);
 app.use(compression());
+app.use(cors());
 
 // route middlewares
 app.use('/api/sea/', userRouter);
