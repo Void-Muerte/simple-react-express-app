@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { URL } from '../lib/urls';
 import axios from 'axios';
 import { Row, Card, Col } from 'react-bootstrap';
+import Layout from './Layout';
 
 
 const UsersList = () => {
@@ -20,7 +21,7 @@ const UsersList = () => {
     },[]);
     const renderedUsers = Object.values(users).map((user, index)=>{
         return (
-                <Row className='justify-content-center mb-4' key={index}>
+                <Row className='justify-content-center mb-2' key={index}>
                     <Col lg={3}>
                         <Card>
                             <Card.Body>
@@ -39,12 +40,12 @@ const UsersList = () => {
         );
     })
   return (
-    <>
+    <Layout>
         <h3 className='text-center pt-5 pb-5'>Users</h3>
         <Col className='justify-content-md-center'>
             {renderedUsers}
         </Col>
-    </>
+    </Layout>
   )
 }
 

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Form, Button, Container, Row, Col} from 'react-bootstrap';
 import axios from 'axios';
+import {  toast } from 'react-toastify';
 
 import { URL } from '../lib/urls';
 
@@ -10,6 +11,12 @@ const NewUser = () => {
     const [city, setCity] = useState('');
     const [country, setCountry] = useState('');
     
+    const handleReset = ()=>{
+        setName('');
+        setEmail('');
+        setCity('');
+        setCountry('');
+    }
     const submitForm = async(e)=>{
         e.preventDefault();
         const payload = {
@@ -24,15 +31,24 @@ const NewUser = () => {
                     'Content-Type':'application/json'
                 }
             });
-            if(response.data?.message ==='successful'){
-                setName('');
-                setEmail('');
-                setCity('');
-                setCountry('');
+            if(response.data?.success){
+                toast.success('User created successfully!');
+                handleReset();
 
+            }else{
+                toast.warn('An error has occured!')
             }
         } catch (error) {
-            
+            if(error.response.data.errors){
+                const message = error.response.data.errors.body[0].message
+                toast.error(message[0].toUpperCase() + message.substring(1));
+            }else if(error.response){
+                toast.error(error.response.error);
+            }else if(error.request){
+                toast.error('Network error: No response from the server');
+            }else{
+                toast.error('An unexpected error occured!');
+            }
         }
     }
   return (

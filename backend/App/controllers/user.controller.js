@@ -25,7 +25,7 @@ const addUserController =  (req, res)=>{
         // insert user and get the inserted user
         const addedUser = addUser(user);
         logger.info('Creating user')
-        return res.status(StatusCodes.CREATED).json({message:'successful', addedUser:addedUser});
+        return res.status(StatusCodes.CREATED).json({success:true, addedUser:addedUser});
 
 }
 /**
@@ -55,7 +55,7 @@ const getUserController = (req, res)=>{
     if(!foundUser){
         return res.status(StatusCodes.NOT_FOUND).json({error:"user not found"});
     }
-    return res.status(StatusCodes.OK).json({user:foundUser});
+    return res.status(StatusCodes.OK).json({success:true,user:foundUser});
 }
 /**
  * delete user by id
@@ -70,7 +70,7 @@ const deleteUserController =(req, res)=>{
     if(!success){
         return res.status(StatusCodes.NOT_FOUND).json({error:`user with id (${id}) was not found!`});
     }
-    return res.status(StatusCodes.OK).json({message:"delete successful", deletedUser:success});
+    return res.status(StatusCodes.OK).json({success:true, message:"delete successful", deletedUser:success});
 }
 /**
  * updates user by id
