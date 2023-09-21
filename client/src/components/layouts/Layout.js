@@ -4,6 +4,7 @@ import {createGlobalStyle} from 'styled-components';
 import { Container } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
 import Navigation from './Navigation';
+import Footer from './Footer';
 
 // declarations
 const GlobalStyle = createGlobalStyle`
@@ -19,7 +20,10 @@ const Layout = ({children}) => {
             <ToastContainer />
             <Navigation />
             <GlobalStyle light />
-            {children}
+            <Container className='my-5'>
+              {children}
+            </Container>
+            <Footer />
         </Container>
     </>
   )

@@ -86,7 +86,7 @@ const updateUserController = (req, res)=>{
     if(!updatedUser){
         return res.status(StatusCodes.NOT_FOUND).json({error:` user with id ${id} not found`});
     }
-    return res.status(StatusCodes.OK).json({updatedUser:updatedUser});
+    return res.status(StatusCodes.OK).json({success:true,updatedUser});
 }
 
 module.exports ={addUserController, getUsersController, getUserController, updateUserController, deleteUserController};

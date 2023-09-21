@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Container, Col, Card, Row } from 'react-bootstrap';
 import {  toast } from 'react-toastify';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
-import { URL } from '../lib/urls';
-import Layout from './Layout';
+/**
+ * local imports
+ */
+import Layout from '../../components/layouts/Layout';
+import { getUserById } from '../../services/user.service';
 
 /**
  * a styled component is still a component and thus should be defined outside another component
@@ -15,19 +17,16 @@ const Notice = styled.p`
 margin:1.25em auto;
 font-size:2em;
 font-weight:600;
+text-align:center;
+padding:1.25em 0;
 `;
 
 const ViewUser = () => {
     const {id} = useParams();
-    const url = URL+`/user/${id}`;
     const [user, setUser] = useState(null);
     const fetchUser = async()=>{
         try {
-            const response = await axios.get(url, {
-                headers:{
-                    'Content-type':'application/json'
-                }
-            });
+            const response = await getUserById(id);
             if(response.data.success){
                 setUser(response.data.user)
             }
