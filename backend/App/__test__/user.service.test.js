@@ -4,6 +4,7 @@ const userService = require('../services/user.service');
 
 let sampleUser;
 let updateParams;
+let another;
 
 test.beforeEach(()=>{
     sampleUser={
@@ -11,12 +12,27 @@ test.beforeEach(()=>{
         email:"johndoe@hotmail.com",
         city:"New York",
         country:"US"
-    },
+    };
     updateParams={
         name:"James Avogadro",
         email:"jamesavos@net.me"
+    };
+    another={
+        name:"Roxanne Simango",
+        email:"roxysimaz@hotmail.com",
+        city:"chipinge",
+        country:"Zimbabwe"
     }
 });
+test.after(()=>{
+    if(userService.getUser(2)){
+        userService.deleteUser(2);
+    }
+});
+
+/**
+ * creating a new user
+ */
 test('must Create a user', (t)=>{
     const expectedId =1;
     const user =userService.addUser(sampleUser);
@@ -38,9 +54,10 @@ test('must Read a user', (t)=>{
  */
 test('must Read all users', (t)=>{
     const expectedId =1;
+    // creating a second user
+    userService.addUser(another);
     const users =userService.getAllUsers();
-    t.is(users[0].id,expectedId);
-    t.deepEqual(users[0],{id:expectedId, ...sampleUser});
+    t.deepEqual(users,[{id:expectedId, ...sampleUser}, {id:2, ...another}]);
 });
 /**
  * updating user test
