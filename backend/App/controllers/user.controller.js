@@ -38,7 +38,7 @@ const getUsersController = (req, res)=>{
     const users = getAllUsers();
     logger.info('retrieving users')
     if(!users || !users.length){
-        return res.status(StatusCodes.NOT_FOUND).json({error:"users are not found"})
+        return res.status(StatusCodes.NOT_FOUND).json({error:"No users currently"});
     }
     return res.status(StatusCodes.OK).json({users});
 }

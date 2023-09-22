@@ -23,6 +23,7 @@ const Layout = ({children}) => {
             <Container className='my-5'>
               {children}
             </Container>
+            
             <Footer />
         </Container>
     </>
